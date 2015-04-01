@@ -1,25 +1,66 @@
 <html>
+<head>
+  <script src="webjars/jquery/2.1.3/jquery.min.js"></script>
+  <script src="webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
 <body>
-my random number: <span th:text="${randomNumber}">something</span>
+	my random number:
+	<span th:text="${randomNumber}">something</span>
 
 	<table>
-      <tr>
-        <th>Participants</th>
-      </tr>
-      <tr th:each="p : ${participants}">
-        <td th:text="${p.name}">name</td>
-      </tr>
-    </table>
+		<tr>
+			<th>Participants</th>
+		</tr>
+		<tr th:each="p : ${participants}">
+			<td th:text="${p.name}">name</td>
+		</tr>
+	</table>
+	<form id="saveUserForm" class="form-horizontal">
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">Name:</label> 
+				<input id="name" name="name"				class="col-sm-10" />
+		</div>
+		<div class="form-group">
+			<button type="button" class="btn btn-primary" id="submit_user">save</button>
+		</div>
+	</form>
+	<!-- Javascript functions -->
+
+	<script>
+    $(document).ready(function() {
+        $("#submit_user").on("click", uploadFile);
+      });
+		/**
+		 * Upload the file sending it via Ajax at the Spring Boot server.
+		 */
+		function uploadFile() {
+			$.ajax({
+				url : "/saveUser",
+				type : "POST",
+				data : new FormData($("#saveUserForm")[0]),
+				enctype : 'multipart/form-data',
+				processData : false,
+				contentType : false,
+				cache : false,
+				success : function() {
+					window.alert('saved');
+				},
+				error : function(e) {
+					window.alert('error');
+				}
+			});
+		} // function uploadFile
+	</script>
 
 
 	<table>
-      <tr>
-        <th>Seats</th>
-      </tr>
-      <tr th:each="s : ${seats}">
-        <td th:text="${s.seat}">name</td>
-      </tr>
-    </table>
+		<tr>
+			<th>Seats</th>
+		</tr>
+		<tr th:each="s : ${seats}">
+			<td th:text="${s.seat}">name</td>
+		</tr>
+	</table>
 
 </body>
 </html>
