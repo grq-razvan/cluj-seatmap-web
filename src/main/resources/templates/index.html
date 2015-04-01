@@ -1,3 +1,25 @@
 <html>
-<body>my random number: <span th:text="${randomNumber}">something</span></body>
+<body>
+my random number: <span th:text="${randomNumber}">something</span>
+
+	<table>
+      <tr>
+        <th>Participants</th>
+      </tr>
+      <tr th:each="p : ${participants}">
+        <td th:text="${p.name}">name</td>
+      </tr>
+    </table>
+
+
+	<table>
+      <tr>
+        <th>Seats</th>
+      </tr>
+      <tr th:each="s : ${seats}">
+        <td th:text="${s.seat}">name</td>
+      </tr>
+    </table>
+
+</body>
 </html>
