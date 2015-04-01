@@ -53,8 +53,11 @@ dependencies {
 
 sourceSets {
     main {
+	java { 
+	    srcDirs = [] 
+	}
         groovy {
-            srcDir 'groovy'
+            srcDir 'src'
         }
         resources {
             srcDir 'resources'
