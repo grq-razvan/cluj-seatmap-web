@@ -1,18 +1,16 @@
 buildscript {
     repositories {
-        maven { url "https://repo.spring.io/libs-release" }
-        mavenLocal()
         mavenCentral()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.1.RELEASE")
     }
 }
-
-apply plugin: 'eclipse'
+apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'application'
 apply plugin: 'spring-boot'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -24,22 +22,18 @@ jar {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
-    maven {
-        url 'http://repo.spring.io/libs-release'
-    }
 }
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web:1.2.2.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.2.2.RELEASE'
+	compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.codehaus.groovy:groovy-all:2.3.7'
     compile 'org.jsoup:jsoup:1.7.2'
     compile 'commons-lang:commons-lang:2.6'
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'com.google.guava:guava:15.0'
-    compile 'org.apache.velocity:velocity:1.7'
     compile 'org.thymeleaf:thymeleaf-spring4:2.1.4.RELEASE'
     compile 'org.apache.pdfbox:pdfbox:1.8.7'
     
@@ -54,11 +48,11 @@ dependencies {
 
 sourceSets {
     main {
-	java { 
-	    srcDirs = [] 
-	}
         groovy {
-            srcDir 'src'
+            srcDirs = ['src/main/java', 'src/main/groovy']
+        }
+        java {
+            srcDirs = []
         }
         resources {
             srcDir 'resources'
