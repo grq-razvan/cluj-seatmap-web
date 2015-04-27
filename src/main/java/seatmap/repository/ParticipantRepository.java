@@ -7,9 +7,10 @@ import org.springframework.data.repository.CrudRepository;
 
 import seatmap.entity.Participant;
 
-public interface ParticipantRepository extends CrudRepository<Participant, Long> {
+public interface ParticipantRepository extends
+		CrudRepository<Participant, Long> {
 
-    @Query("SELECT p.name FROM Participant p")
-    List<String> findNames();
+	@Query("SELECT p.name FROM Participant p")
+	List<String> findNames();
 
 }

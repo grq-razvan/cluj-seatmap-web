@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import seatmap.Application;
 import seatmap.NotEnoughRoomsException;
 import seatmap.repository.ParticipantRepository;
-import seatmap.repository.SeatRepository;
+import seatmap.repository.RoomRepository;
 import seatmap.retriever.RandomNumberRetriever;
 import be.quodlibet.boxable.PdfCell;
 import be.quodlibet.boxable.PdfRow;
@@ -38,13 +38,13 @@ public class SeatmapGenerator {
 
     private final RandomNumberRetriever randomGenerator;
     private final ParticipantRepository pRepo;
-    private final SeatRepository sRepo;
+    private final RoomRepository roomRepository;
 
     @Autowired
-    public SeatmapGenerator(RandomNumberRetriever randomGenerator, ParticipantRepository pRepo, SeatRepository sRepo) {
+    public SeatmapGenerator(RandomNumberRetriever randomGenerator, ParticipantRepository pRepo, RoomRepository roomRepository) {
         this.randomGenerator = randomGenerator;
         this.pRepo = pRepo;
-        this.sRepo = sRepo;
+        this.roomRepository = roomRepository;
     }
 
     private static final int NUMBER_OF_TALBES_IN_ROOM = 8;
@@ -88,7 +88,7 @@ public class SeatmapGenerator {
 
     public void generateSeatmap(Date date, OutputStream outputStream) throws NotEnoughRoomsException {
         final List<String> employees = pRepo.findNames();
-        final List<String> rooms = sRepo.findNames();
+        final List<String> rooms = roomRepository.findNames();
         Collections.shuffle(rooms, new Random(randomGenerator.retrieveNewSeedNumber(Application.RANDOM_INT_URL)));
         Collections.shuffle(employees, new Random(randomGenerator.retrieveNewSeedNumber(Application.RANDOM_INT_URL)));
         final LinkedHashMap<String, List<String>> roomsWithTables = expandRooms(rooms);

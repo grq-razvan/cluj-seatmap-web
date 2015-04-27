@@ -7,15 +7,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Seat")
-public class Seat {
+@Table(name = "Room")
+public class Room {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(name = "seatName", length = 50, nullable = false)
-    private String seat;
+    @Column(name = "roomName", length = 50, nullable = false)
+    private String room;
 
     public Long getId() {
         return id;
@@ -25,12 +25,12 @@ public class Seat {
         this.id = id;
     }
 
-    public String getSeat() {
-        return seat;
+    public String getRoom() {
+        return room;
     }
 
-    public void setSeat(String seat) {
-        this.seat = seat;
+    public void setRoom(String room) {
+        this.room = room;
     }
 
 }
